@@ -10,7 +10,6 @@ namespace ConsoleApp1
             return new Person { Name = this.Name, Age = this.Age };
         }
     }
-
     class Program
     {
         static void Main(string[] args)
