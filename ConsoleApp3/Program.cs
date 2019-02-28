@@ -1,51 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-
 namespace ConsoleApp1
 {
-    interface IGeometrical // объявление интерфейса
-    {
-        void GetPerimeter();
-        void GetArea();
-    }
-    class Rectangle : IGeometrical //реализация интерфейса
-    {
-        public void GetPerimeter()
-        {
-            Console.WriteLine("Rectangle GetPerimeter (a+b)*2");
-        }
-
-        public void GetArea()
-        {
-            Console.WriteLine("Rectangle GetArea a*b");
-        }
-    }
-    class Circle : IGeometrical //реализация интерфейса
-    {
-
-        public void GetPerimeter()
-        {
-            Console.WriteLine("Circle GetPerimeter 2*pi*r");
-        }
-
-        public void GetArea()
-        {
-            Console.WriteLine("Circle GetArea pi*r^2");
+    class Person : IComparable {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public int CompareTo(object o) {
+            Person p = o as Person;
+            if (p != null)
+                return this.Name.CompareTo(p.Name);
+            else
+                throw new Exception("Неможливо порівняти два об'єкти");
         }
     }
     class Program
     {
         static void Main(string[] args)
         {
-            List<IGeometrical> figures = new List<IGeometrical>();
-            figures.Add(new Rectangle());
-            figures.Add(new Circle());
-            foreach (IGeometrical f in figures)
-            {
-                f.GetPerimeter();
-                f.GetArea();
+            Person p1 = new Person { Name = "Bill", Age = 34 };
+            Person p2 = new Person { Name = "Tom", Age = 23 };
+            Person p3 = new Person { Name = "Alice", Age = 21 };
+            Person[] people = new Person[] { p1, p2, p3 };
+            Array.Sort(people);
+            foreach (Person p in people) {
+                Console.WriteLine("{0} - {1}", p.Name, p.Age);
             }
-            Console.ReadLine();
         }
     }
 }
