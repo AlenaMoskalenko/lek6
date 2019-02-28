@@ -1,29 +1,26 @@
 ﻿using System;
 namespace ConsoleApp1
 {
-    class Person : IComparable {
+    class Person : ICloneable
+    {
         public string Name { get; set; }
         public int Age { get; set; }
-        public int CompareTo(object o) {
-            Person p = o as Person;
-            if (p != null)
-                return this.Name.CompareTo(p.Name);
-            else
-                throw new Exception("Неможливо порівняти два об'єкти");
+        public object Clone()
+        {
+            return new Person { Name = this.Name, Age = this.Age };
         }
     }
+
     class Program
     {
         static void Main(string[] args)
         {
-            Person p1 = new Person { Name = "Bill", Age = 34 };
-            Person p2 = new Person { Name = "Tom", Age = 23 };
-            Person p3 = new Person { Name = "Alice", Age = 21 };
-            Person[] people = new Person[] { p1, p2, p3 };
-            Array.Sort(people);
-            foreach (Person p in people) {
-                Console.WriteLine("{0} - {1}", p.Name, p.Age);
-            }
+            Person p1 = new Person { Name = "Tom", Age = 23 };
+            Person p2 = (Person)p1.Clone();
+            p2.Name = "Alice";
+            Console.WriteLine(p1.Name); // Tom
+            Console.WriteLine(p2.Name); // Alice
+            Console.Read();
         }
     }
 }
